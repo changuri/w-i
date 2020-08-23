@@ -6,11 +6,11 @@
                 v-for="item in photo" :key="item"> 
                 <img :src="require(`@/assets/img/img_${item}.jpg`)" alt="img">
             </div>
-            <button @click="$emit('close')" class="close">
-                닫기
-                <!-- <img src="@/assets/icon/close-w.svg" alt="닫기" class="icon-24"> -->
-            </button>
         </div>
+        <button @click="$emit('close')" class="close">
+            닫기
+            <!-- <img src="@/assets/icon/close-w.svg" alt="닫기" class="icon-24"> -->
+        </button>
      
   </div>
 </template>
@@ -43,29 +43,36 @@ export default {
 
 <style scoped lang="scss">
 .img-modal-area{
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     z-index: 1000;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     .bg{
         position: fixed;
         left: 0;
         top: 0;
         background: rgba(0,0,0, .7);
         width: 100%;
-        height: 100%;
+        height: 100vh;
     }
     .photo-area{
             position: absolute;
-            padding: 65px 0;;
-            width: 100%;   
-            z-index: 2000;
+            top: 0;
+            left: 50%;
+            transform: translateX( -50%);
+            overflow-x: scroll;
+            padding: 65px 0;  
+            height: 100%;
+            overflow-y: scroll;
+            margin: auto;
+            box-sizing: border-box;
+            width: calc(100% - 40px);
             .item{
-                padding: 6px 20px;
-                box-sizing: border-box;
-                width: 100%;
+                padding: 6px 0;
+                // width: calc(100% - 10px);
+                margin: auto;
                 img{
                     width: 100%;
                     display: block;
