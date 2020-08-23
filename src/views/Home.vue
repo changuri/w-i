@@ -17,7 +17,7 @@
         <div class="sub-area">
           <span class="title">신부측 피로연</span>
           <div class="sub-info">
-            <h3>2020.10.10. 토요일 . 12시</h3>
+            <h3>2020.10.9. 금요일. 오후 5-8시</h3>
             <span>호텔 머드린</span>
           </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="sub-area">
           <span class="title">신부측 관광버스</span>
           <div class="sub-info">
-            <h3>2020.10.17. 토요일 . 07시 출발</h3>
+            <h3>2020.10.17. 토요일. 오전 7시 출발</h3>
             <span>보령 서부 수협 앞</span>
           </div>
         </div>
