@@ -396,7 +396,7 @@ export default {
                 this.msg = '';
             })
             // this.$router.go($router.currentRoute);
-            this.$router.replace('/');
+            // this.$router.replace('/');
           }
             
         },
@@ -418,7 +418,7 @@ export default {
                 }
             })
         })
-        this.$router.replace('/');
+        // this.$router.replace('/');
     }
 
 }

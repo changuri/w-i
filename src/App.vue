@@ -45,11 +45,11 @@ export default {
     selectItem(i) {
         this.activeItem = i;
     },
-    goToRoute(name) {
-          if(name != this.$route.name){
-              this.$router.push({name}).catch(()=>{});
-          }
-      },
+    // goToRoute(name) {
+    //       if(name != this.$route.name){
+    //           this.$router.push({name}).catch(()=>{});
+    //       }
+    //   },
   },
 
 
