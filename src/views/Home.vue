@@ -32,7 +32,11 @@
     </div>
 
     <div id="invitation">
-      <span class="title">모시는 글</span>
+      <div class="invitation-title-area">
+        <span>✤</span>
+        <span class="invitation-title"> 초대합니다 </span>
+        <span>✤</span>
+      </div>
       <div class="text-area-k text-center">
           저희 두 사람 소중한 분들 앞에서 <br>
           평생 함께할 것을 약속하고자 합니다. <br><br>
@@ -78,7 +82,7 @@
 
     <div id="call">
       <div class="we-area">
-          <span class="title">축하 연락</span>
+          <span class="title-b">축하 연락</span>
           <div class="wrap flex-sb">
             <div class="flex-start">
                   <span class="info">신랑</span>
@@ -109,7 +113,7 @@
         </div>
       </div>
       <div class="parants-area">
-        <span class="title">혼주에게 연락하기</span>
+        <span class="title-b">혼주에게 연락하기</span>
         <div class="parants">
           <div class="flex-sb">
             <h4>신부측</h4>
@@ -198,15 +202,27 @@
       </div>
 
       <div id="gallery">
-       <span class="title">웨딩 사진</span>
-       <div class="photo-area" >
-           <div class="item">
-                <div class=""
-                    v-for="item in photo" :key="item"> 
+        <span class="title">웨딩 사진</span>
+          <div class="photo-wrap">
+            <div class="photo-area flex-sb-st">
+              <div class="item">
+                  <div class=""
+                    v-for="item in photo1" :key="item"> 
                     <img :src="require(`@/assets/img/img_${item}.jpg`)" alt="img">
-                </div>
-           </div>
-       </div>
+                  </div>
+              </div>
+              <div class="item">
+                    <div class=""
+                        v-for="item in photo2" :key="item"> 
+                        <img :src="require(`@/assets/img/img_${item}.jpg`)" alt="img">
+                    </div>
+              </div>
+            </div>
+            <div class="wrap">
+
+            </div>
+          </div>
+       <div class="more-pics"  @click="showImgModal = true">더보기</div>
     </div>
 
   <div id="location">
@@ -264,31 +280,33 @@
 
 
   <div id="comments">
-        <span class="title">축하 메세지 남기기</span>
-        <form class="comments-area" ref="form">
-            <input type="text" placeholder="이름" v-model="name">
-            <textarea v-model="msg"  cols="30" rows="5" placeholder="축하메세지를 남겨주세요."></textarea>
-            <button type="submit" @click="submit">축하메세지 남기기</button>
-        </form>
+    <span class="title">축하 메세지 남기기</span>
+    <form class="comments-area" ref="form">
+        <input type="text" placeholder="이름" v-model="name">
+        <textarea v-model="msg"  cols="30" rows="5" placeholder="축하메세지를 남겨주세요."></textarea>
+        <button type="submit" @click="submit">축하메세지 남기기</button>
+    </form>
 
-        <span class="title">축하 메세지</span>
-        <ul class="msg-area flex-col-reverse">
-            <li v-for="comment in comments" :key="comment.name">
-                <div class="flex-sb name-area">
-                    <h4>{{comment.name}}</h4>
-                    <span class="font-14-g text-right">{{comment.create_date}}</span>
-                </div>
-                <div class="msg">
-                    {{comment.msg}}
-                </div>
-            </li>
-        </ul>
-        
+    <span class="title">축하 메세지</span>
+    <ul class="msg-area flex-col-reverse">
+        <li v-for="comment in comments" :key="comment.name">
+            <div class="flex-sb name-area">
+                <h4>{{comment.name}}</h4>
+                <span class="font-14-g text-right">{{comment.create_date}}</span>
+            </div>
+            <div class="msg">
+                {{comment.msg}}
+            </div>
+        </li>
+    </ul>
 
     </div>
   
   
-  
+  <img-modal
+      v-show="showImgModal"
+      @close="close"
+  ></img-modal>
   
   </div>
 
@@ -296,80 +314,97 @@
 </template>
 
 <script>
+import ImgModal from '@/components/ImgModal' 
 import db from '@/fb'
 
 export default {
-  
+  components:{
+        ImgModal,
+    },
  
   data(){
-        return{
-            plusAccount1: false,
-            plusAccount2: false,
+    return{
+        showImgModal: false,
+        plusAccount1: false,
+        plusAccount2: false,
 
-              photo: [
-                '21','22','23','24','25','26','27','28','29','30',
-                '31','32','33','34','14','15','16','17','18','19','20',
-                '02','03','04','05','06','07','08','09','10',
-                '11','12','13','01',
-            ],
-             name:'',
-            msg:'',
-            create_date:'',
+        photo1: [
+            '21', '23', '25', '27'
+        ],
+        photo2: [
+            '22', '24', '26' ,
+        ],
+          name:'',
+        msg:'',
+        create_date:'',
 
-            comments:[]
-        }
+        comments:[]
+    }
   },
   mounted() {
          window.kakao && window.kakao.maps ? this.initMap() : this.addScript(); 
     }, 
     methods : { 
         textCopy(){
-            var textToCopy = document.getElementById('addrVal');
-            textToCopy.select();
-            textToCopy.setSelectionRange(0, 9999); 
-            document.execCommand("copy");
+          var textToCopy = document.getElementById('addrVal');
+          textToCopy.select();
+          textToCopy.setSelectionRange(0, 9999); 
+          document.execCommand("copy");
+          
+          alert('주소가 복사 되었습니다.')
+          
         },
         initMap() { 
-            var container = document.getElementById('map'); 
-            var options = { center: new kakao.maps.LatLng(37.535344, 127.095805), level: 4 }; 
-            var map = new kakao.maps.Map(container, options); 
-            //마커추가하려면 객체를 아래와 같이 하나 만든다. 
-            var marker = new kakao.maps.Marker({ 
-                position: map.getCenter() 
-            }); 
-            marker.setMap(map); 
+          var container = document.getElementById('map'); 
+          var options = { center: new kakao.maps.LatLng(37.535344, 127.095805), level: 4 }; 
+          var map = new kakao.maps.Map(container, options); 
+          //마커추가하려면 객체를 아래와 같이 하나 만든다. 
+          var marker = new kakao.maps.Marker({ 
+              position: map.getCenter() 
+          }); 
+          marker.setMap(map); 
 
-            var zoomControl = new kakao.maps.ZoomControl();
-            map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+          var zoomControl = new kakao.maps.ZoomControl();
+          map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
         }, 
         addScript() { 
-            const script = document.createElement('script');
-            /* global kakao */ 
-            script.onload = () => kakao.maps.load(this.initMap); 
-            script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=39276f27d4001ea3e8b989ea0b22b8c5'; 
-            document.head.appendChild(script); 
+          const script = document.createElement('script');
+          /* global kakao */ 
+          script.onload = () => kakao.maps.load(this.initMap); 
+          script.src = 'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=39276f27d4001ea3e8b989ea0b22b8c5'; 
+          document.head.appendChild(script); 
         } ,
-         submit(){
-                const today = new Date();
-                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                const dateTime = date +' '+ time;
-                this.create_date = dateTime;
+        submit(){
+          if(this.name == '' || this.msg == ''){
+                  alert('빈칸을 가득 채워주세요 ๑•‿•๑')
+              }
+          else{
+            const today = new Date();
+            const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            const dateTime = date +' '+ time;
+            this.create_date = dateTime;
 
-                const comment = {
-                    name: this.name,
-                    msg: this.msg,
-                    create_date: this.create_date
-                }
+            const comment = {
+                name: this.name,
+                msg: this.msg,
+                create_date: this.create_date
+            }
 
-                db.collection('comments').add(comment).then(() => {
-                    console.log('added to db');
-                    this.reset();
-                })
-                // this.$router.go($router.currentRoute);
-                this.$router.replace('/').catch(()=>{});
+            db.collection('comments').add(comment).then(() => {
+                console.log('added to db');
+                this.name = '';
+                this.msg = '';
+            })
+            // this.$router.go($router.currentRoute);
+            // this.$router.replace('/');
+          }
             
         },
+        close(){
+            this.showImgModal = false;
+            console.log('close', close);
+        }
       },
       created(){
         db.collection('comments').onSnapshot( res => {
@@ -384,7 +419,7 @@ export default {
                 }
             })
         })
-        this.$router.replace('/').catch(()=>{});
+        // this.$router.replace('/');
     }
 
 }
@@ -393,10 +428,10 @@ export default {
 <style scoped lang="scss">
 #home{
   overflow-y: scroll;
-  margin-bottom: 100px;
+  margin-bottom: 30px;
   .info-area{
     // text-align: center;
-    padding: 45px 20px 24px ;
+    padding: 65px 20px 24px ;
     p{
       font-size: 18px;
       font-weight: 300;
@@ -462,51 +497,64 @@ export default {
 
 }
 #invitation{
-        font-size: 16px ;
-        color: #292929;
-        padding: 55px 0px 40px;
-        .title{
-            margin: 0 20px;
+    font-size: 16px ;
+    color: #292929;
+    padding: 55px 0px 0px;
+    background: #f5f5f5;
+    .invitation-title-area{
+        // margin: 0 20px;
+        text-align: center;
+        width: 100%;
+        font-size: 13px;
+        color: #ccc;
+        .invitation-title{
+          padding: 0 20px;
+          color:  #a2a2a2;;
         }
-        .text-area-k{
-            padding: 40px 20px 35px;
-            .people-area{
-                padding-top: 30px;
-                width: 185px;
-                margin: 0 auto;
-                text-align: left;
-                font-weight: bold;
-                font-size: 16px;
-                .people{
-                    margin: 3px 0;
-                    .info{
-                        font-size: 14px;
-                        color: #999;
-                        padding: 0 8px;
-                    }
+    }
+    .text-area-k{
+        padding: 30px 20px 45px;
+        .people-area{
+            padding-top: 30px;
+            width: 185px;
+            margin: 0 auto;
+            text-align: left;
+            font-weight: bold;
+            font-size: 16px;
+            .people{
+                margin: 3px 0;
+                .info{
+                    font-size: 14px;
+                    color: #999;
+                    padding: 0 8px;
                 }
             }
         }
-        .text-area-e{
-            font-size: 14px ;
-            padding: 40px 0 80px;
-            color: #666;
-            // background: #ffeff0;
-            background: #f5f5f5;;
-            .inner{
-                padding: 0 20px;
-            }
-            p{
-                font-weight: bold;
-                font-size: 16px;
-            }
-            span{
-                font-weight: bold;
-            }
-        }
     }
+  .text-area-e{
+      font-size: 13px ;
+      padding: 40px 0 80px;
+      color: #666;
+      background: #fff;
+      // background: #f5f5f5;
+      .inner{
+          padding: 0 20px;
+      }
+      p{
+          font-weight: bold;
+          font-size: 15px;
+      }
+      span{
+          font-weight: bold;
+      }
+    }
+  }
+
 #call{
-    padding: 30px 0px;
+    padding: 35px 0px;
+    margin: 0 20px;
+    background: #f5f5f5;
+    border-radius: 16px;
     .info{
         font-size: 14px;
         font-weight: 300;
@@ -531,6 +579,7 @@ export default {
     }
     .we-area{
         padding: 24px 30px 24px;
+        
     }
     .plus-area{
         font-size: 14px;
@@ -543,8 +592,8 @@ export default {
         }
     }
     .parants-area{
-        padding: 32px 30px 80px;
-        background: #f5f5f5;
+        padding: 32px 30px 0px;
+        // background: #f5f5f5;
         .parants{
             padding: 25px 0 5px;
         }
@@ -561,57 +610,81 @@ export default {
 }
 
 #gallery{
-    padding: 55px 15px 80px;
+  padding: 80px 15px 10px;
+  position: relative;
+  .photo-wrap{
     position: relative;
-    .photo-area{
-        padding: 20px 0;
-        width: 100%;   
-        .item{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            div{
-                padding: 4px;
-                box-sizing: border-box;
-                width: 100%;
-                img{
-                    width: 100%;
-                    display: block;
-                    border-radius: 8px;
-                }
-            }
-        }
+    .wrap{
+      position: absolute;
+      bottom: 0;
+      background: linear-gradient( to bottom, #ffffff00, #fff  );
+      z-index: 1;
+      width: 100%;
+      height: 120px;
     }
+  }
+  .photo-area{
+      padding: 20px 0;
+      width: 100%;   
+      height: 400px;
+      overflow: hidden;
+      box-sizing: border-box;
+      .item{
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          div{
+              padding: 4px;
+              box-sizing: border-box;
+              width: 100%;
+              img{
+                  width: 100%;
+                  display: block;
+                  border-radius: 8px;
+              }
+          }
+      }
+  }
+  .more-pics{
+    width: 100%;
+    padding: 12px 12px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background: #ebb8be;
+    color: #fff;
+    margin: 10px 0 30px;
+    text-align: center;
+  }
 }
 
  #location{
-    padding: 55px 20px 80px;
-    .weddingsqure-area{
-        padding: 15px 0px 15px 10px;
-        .addr-area{
-            padding: 6px 0;
-            .addr-copy{
-                width: 100%;
-                textarea{
-                    font-size: 14px;
-                    margin: 3px 0;
-                    width: 80%;
-                }
-                button{
-                    color: #7abaff;
-                    font-size: 13px;
-                }
-            }
-        }
-        .tel{
-            font-size: 14px;
-            color: #999;
-        }
-        a{
-            color: #7abaff;
-            font-size: 13px;
-            margin-left: 10px;
-        }
+  padding: 55px 20px 30px;
+  .weddingsqure-area{
+      padding: 15px 0px 15px 10px;
+      .addr-area{
+          padding: 6px 0;
+          .addr-copy{
+              width: 100%;
+              textarea{
+                  font-size: 14px;
+                  margin: 3px 0;
+                  width: 80%;
+              }
+              button{
+                  color: #7abaff;
+                  font-size: 13px;
+              }
+          }
+      }
+      .tel{
+          font-size: 14px;
+          color: #999;
+      }
+      a{
+          color: #7abaff;
+          font-size: 13px;
+          margin-left: 10px;
+      }
     }
     .map-wapper{
         position: relative;

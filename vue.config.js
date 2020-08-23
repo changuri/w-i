@@ -12,5 +12,5 @@
 //     }
 
 module.exports ={
-    publicPath: '/w_invitation/'
+    publicPath: '/w-i/'
 }

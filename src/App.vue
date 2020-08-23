@@ -14,6 +14,9 @@
       </ul>
      
     </div> -->
+    <div class="footer">
+      Copyright @CHAE HYEON. All Rights Reserved
+    </div>
   </div>
 </template>
 
@@ -97,5 +100,12 @@ export default {
     }
   }
 }
-
+.footer{
+  font-size: 11px;
+  width: 100%;
+  padding: 12px 0;
+  text-align: center;
+  background: #f5f5f5;
+  color: #999;
+}
 </style>
