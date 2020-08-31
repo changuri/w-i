@@ -117,14 +117,14 @@
         <div class="parants">
           <div class="flex-sb">
             <h4>신부측</h4>
-              <!-- <button class="plus" @click="plusAccount1 = !plusAccount1">마음 전하실 곳</button> -->
+              <button class="plus" @click="plusAccount1 = !plusAccount1">마음 전하실 곳</button>
           </div>
-          <!-- <transition name="fade">
-              <div v-show="plusAccount1" class="flex-col-center plus-area">
-                  <span>우리은행. 1002-529-645527</span>
-                  <span>계좌주. 배병숙</span>
+          <transition name="fade">
+              <div v-show="plusAccount1" class="plus-area">
+                  <span>수협:</span><b>2020-0042-5579</b><br>
+                  <span>예금주:</span><b>채수길</b>
               </div>
-          </transition> -->
+          </transition>
           <div class="">
             <div class="wrap flex-sb">
                   <div class="flex-sb">
@@ -582,12 +582,16 @@ export default {
     }
     .plus-area{
         font-size: 14px;
-        color: #999;
+        color: #292929;
         padding: 5px 0;
-        background: #fafafa;
+        text-align: right;
         margin: 15px 0 0;
         span{
             margin: 3px 0;
+            display: inline-block;
+        }
+        b{
+            margin-left: 10px;
         }
     }
     .parants-area{
