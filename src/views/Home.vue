@@ -51,7 +51,7 @@
                   김영모<span class="mid-dot-after"></span>문순자 <span class="info">장남</span>  건수
               </div>
               <div class="people">
-                  채수길<span class="mid-dot-after"></span>배병숙 <span class="info">장녀</span>  현
+                  채수길<span class="mid-dot-after"></span>배병숙 <span class="info">장녀</span>  현<span class="blind">현</span>
               </div>
           </div>
       </div>
@@ -529,13 +529,12 @@ export default {
         padding: 30px 20px 45px;
         .people-area{
             padding-top: 30px;
-            width: 185px;
             margin: 0 auto;
-            text-align: left;
+            text-align: center;
             font-weight: bold;
             font-size: 16px;
             .people{
-                margin: 3px 0;
+                margin: 3px auto;
                 .info{
                     font-size: 14px;
                     color: #999;
