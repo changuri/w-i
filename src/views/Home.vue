@@ -117,14 +117,14 @@
         <div class="parants">
           <div class="flex-sb">
             <h4>신부측</h4>
-              <button class="plus" @click="plusAccount1 = !plusAccount1">마음 전하실 곳</button>
+              <!-- <button class="plus" @click="plusAccount1 = !plusAccount1">마음 전하실 곳</button> -->
           </div>
-          <transition name="fade">
+          <!-- <transition name="fade">
               <div v-show="plusAccount1" class="plus-area">
                   <span>수협:</span><b>2020-0042-5579</b><br>
                   <span>예금주:</span><b>채수길</b>
               </div>
-          </transition>
+          </transition> -->
           <div class="">
             <div class="wrap flex-sb">
                   <div class="flex-sb">
@@ -199,9 +199,23 @@
                 </div>
             </div>    
         </div>
-      </div>
+    </div>
 
-      <div id="gallery">
+    <div id="account" class="">
+        <span class="title">마음 전하실 곳</span>
+        <div class="account-info">
+            <div class="account-area">
+                <span class="info">신부측</span>
+                <b>채수길</b><span class="account">수협은행 2020-0042-5579 </span>  
+            </div>
+            <div class="account-area">
+                <span class="info">신랑측</span>
+                <b>김영모</b><span class="account">국민은행 689501-01-352960</span> 
+            </div>
+        </div>
+    </div>
+
+    <div id="gallery">
         <span class="title">웨딩 사진</span>
           <div class="photo-wrap">
             <div class="photo-area flex-sb-st">
@@ -609,6 +623,33 @@ export default {
     .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
         opacity: 0;
         height: 0;
+    }
+}
+
+#account{
+    margin-top: 55px;
+    padding: 55px 20px 0px;
+    .account-info{
+        margin-top: 20px;
+    }
+    .account-area{
+        margin-bottom: 5px;
+        .info{
+            color: #fff;
+            background: #ebb8bd;
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 12px;
+            border-radius: 20px;
+            margin-right: 10px;
+            // vertical-align: middle;
+        }
+        .account{
+            color: #999;
+            margin-left: 10px;
+            font-weight: 400;
+        }
+        
     }
 }
 
