@@ -18,7 +18,7 @@
           <span class="title">신부측 피로연</span>
           <div class="sub-info">
             <h3>2020.10.9. 금요일. 오후 5-8시</h3>
-            <span>호텔 머드린</span>
+            <span>보령슻불갈비</span>
           </div>
         </div>
 
@@ -302,7 +302,7 @@
     </form>
 
     <span class="title">축하 메세지</span>
-    <ul class="msg-area flex-col-reverse">
+    <ul class="msg-area ">
         <li v-for="comment in comments" :key="comment.name">
             <div class="flex-sb name-area">
                 <h4>{{comment.name}}</h4>
@@ -359,6 +359,10 @@ export default {
          window.kakao && window.kakao.maps ? this.initMap() : this.addScript(); 
     }, 
     methods : { 
+        close(){
+            this.showImgModal = false;
+            console.log('close', close);
+        },
         textCopy(){
           var textToCopy = document.getElementById('addrVal');
           textToCopy.select();
@@ -414,10 +418,7 @@ export default {
           }
             
         },
-        close(){
-            this.showImgModal = false;
-            console.log('close', close);
-        }
+        
       },
       created(){
         db.collection('comments').onSnapshot( res => {
