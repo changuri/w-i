@@ -64,7 +64,7 @@
               We have found each other's soul mates <br>to be with every moment. <br><br>
               We are in love and<br>  we're going to start our adventure.<br><br>
 
-              We would like to invite you<br> to celebarte this specail day.<br><br>
+              We would like to invite you<br> to celebrate this special day.<br><br>
               Please watch the first step of<br> combining two people have lived different lives.<br>
               and the first day in our new life together. <br><br>
 
@@ -384,6 +384,7 @@ export default {
           var zoomControl = new kakao.maps.ZoomControl();
           map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
         }, 
+
         addScript() { 
           const script = document.createElement('script');
           /* global kakao */ 
@@ -391,31 +392,32 @@ export default {
           script.src = '//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=fa26ac4bdca6a8631a704dabdd184bc8'; 
           document.head.appendChild(script); 
         } ,
+
         submit(){
-          if(this.name == '' || this.msg == ''){
-                  alert('빈칸을 가득 채워주세요 ๑•‿•๑')
-              }
-          else{
-            const today = new Date();
-            const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            const dateTime = date +' '+ time;
-            this.create_date = dateTime;
+            if(this.name == '' || this.msg == ''){
+                    alert('빈칸을 가득 채워주세요 ๑•‿•๑')
+                }
+            else{
+                const today = new Date();
+                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                const dateTime = date +' '+ time;
+                this.create_date = dateTime;
 
-            const comment = {
-                name: this.name,
-                msg: this.msg,
-                create_date: this.create_date
+                const comment = {
+                    name: this.name,
+                    msg: this.msg,
+                    create_date: this.create_date
+                }
+
+                db.collection('comments').add(comment).then(() => {
+                    console.log('added to db');
+                    this.name = '';
+                    this.msg = '';
+                })
+                // this.$router.go($router.currentRoute);
+                // this.$router.replace('/');
             }
-
-            db.collection('comments').add(comment).then(() => {
-                console.log('added to db');
-                this.name = '';
-                this.msg = '';
-            })
-            // this.$router.go($router.currentRoute);
-            // this.$router.replace('/');
-          }
             
         },
         
@@ -433,7 +435,6 @@ export default {
                 }
             })
         })
-        // this.$router.replace('/');
     }
 
 }
@@ -561,7 +562,7 @@ export default {
           font-weight: bold;
       }
     }
-  }
+}
 
 #call{
     padding: 35px 0px;
@@ -707,18 +708,19 @@ export default {
       padding: 15px 0px 15px 10px;
       .addr-area{
           padding: 6px 0;
-          .addr-copy{
-              width: 100%;
-              textarea{
-                  font-size: 14px;
-                  margin: 3px 0;
-                  width: 80%;
-              }
-              button{
-                  color: #7abaff;
-                  font-size: 13px;
-              }
-          }
+            .addr-copy{
+                width: 100%;
+                textarea{
+                    font-size: 14px;
+                    margin: 3px 0;
+                    width: 80%;
+                        overflow: hidden;
+                }
+                button{
+                    color: #7abaff;
+                    font-size: 13px;
+                }
+            }
       }
       .tel{
           font-size: 14px;
